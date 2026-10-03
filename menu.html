@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Menu - Brew & Bloom</title>
+    <link rel="stylesheet" href="reiina.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+</head>
+
+<body>
+
+    <nav class="navbar">
+        <div class="container">
+            <div class="logo">
+                <h2>☕ Brew & Bloom</h2>
+            </div>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="menu.html" class="active">Menu</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="reservations.html">Reservations</a></li>
+                <li><a href="contact.html">Contact</a></li>
+                <li><a href="cart.html" class="cart-link">🛒 <span class="cart-count" id="cartCount">0</span></a></li>
+            </ul>
+            <div class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <section class="menu-page">
+        <div class="container">
+            <h1>Our Menu</h1>
+            <p class="subtitle">Crafted with love, served with joy</p>
+
+            <div class="category-nav">
+                <button class="category-btn active" data-category="all">All</button>
+                <button class="category-btn" data-category="coffee">Coffee</button>
+                <button class="category-btn" data-category="tea">Tea</button>
+                <button class="category-btn" data-category="pastry">Pastries</button>
+                <button class="category-btn" data-category="breakfast">Breakfast</button>
+            </div>
+
+            <div class="menu-items" id="menuItems">
+                <!-- Coffee Items -->
+                <div class="menu-item" data-category="coffee">
+                    <div class="menu-item-info">
+                        <h3>Espresso</h3>
+                        <p>Rich and bold single shot</p>
+                        <span class="price"> ₱199</span>
+                    </div>
+                    <button class="btn-add" onclick="addToCart('Espresso', 3.50)">Add to Order</button>
+                </div>
+
+                <div class="menu-item" data-category="coffee">
+                    <div class="menu-item-info">
+                        <h3>Latte</h3>
+                        <p>Espresso with steamed milk</p>
+                        <span class="price"> ₱149</span>
+                    </div>
+                    <button class="btn-add" onclick="addToCart('Latte', 4.50)">Add to Order</button>
+                </div>
+
+                <div class="menu-item" data-category="coffee">
+                    <div class="menu-item-info">
+                        <h3>Cappuccino</h3>
+                        <p>Espresso with foamed milk</p>
+                        <span class="price"> ₱199</span>
+                    </div>
+                    <button class="btn-add" onclick="addToCart('Cappuccino', 4.75)">Add to Order</button>
+                </div>
+
+                <div class="menu-item" data-category="coffee">
+                    <div class="menu-item-info">
+                        <h3>Mocha</h3>
+                        <p>Espresso with chocolate and milk</p>
+                        <span class="price"> ₱249</span>
+                    </div>
+                    <button class="btn-add" onclick="addToCart('Mocha', 5.00)">Add to Order</button>
+                </div>
+
+                <div class="menu-item" data-category="coffee">
+                    <div class="menu-item-info">
+                        <h3>Americano</h3>
+                        <p>Espresso with hot water</p>
+                        <span class="price"> ₱149</span>
+                    </div>
+                    <button class="btn-add" onclick="addToCart('Americano', 3.75)">Add to Order</button>
+                </div>
+
+                <!-- Tea Items -->
+                <div class="menu-item" data-category="tea">
+                    <div class="menu-item-info">
+                        <h3>Matcha Latte</h3>
+                        <p>Premium matcha with oat milk</p>
+                        <span class="price"> ₱249</span>
+                    </div>
+                    <button class="btn-add" onclick="addToCart('Matcha Latte', 5.50)">Add to Order</button>
+                </div>
+
+                <div class="menu-item" data-category="tea">
+                    <div class="menu-item-info">
+                        <h3>Chai Tea</h3>
+                        <p>Spiced black tea with milk</p>
+                        <span class="price"> ₱199</span>
+                    </div>
+                    <button class="btn-add" onclick="addToCart('Chai Tea', 4.25)">Add to Order</button>
+                </div>
+
+                <div class="menu-item" data-category="tea">
+                    <div class="menu-item-info">
+                        <h3>Green Tea</h3>
+                        <p>Premium Japanese green tea</p>
+                        <span class="price"> ₱249</span>
+                    </div>
+                    <button class="btn-add" onclick="addToCart('Green Tea', 3.75)">Add to Order</button>
+                </div>
+
+                <div class="menu-item" data-category="tea">
+                    <div class="menu-item-info">
+                        <h3>London Fog</h3>
+                        <p>Earl grey with steamed milk</p>
+                        <span class="price"> ₱199</span>
+                    </div>
+                    <button class="btn-add" onclick="addToCart('London Fog', 4.50)">Add to Order</button>
+                </div>
+
+                <!-- Pastry Items -->
+                <div class="menu-item" data-category="pastry">
+                    <div class="menu-item-info">
+                        <h3>Croissant</h3>
+                        <p>Buttery, flaky French pastry</p>
+                        <span class="price"> ₱149</span>
+                    </div>
+                    <button class="btn-add" onclick="addToCart('Croissant', 4.00)">Add to Order</button>
+                </div>
+
+                <div class="menu-item" data-category="pastry">
+                    <div class="menu-item-info">
+                        <h3>Muffin</h3>
+                        <p>Blueberry or chocolate chip</p>
+                        <span class="price"> ₱149</span>
+                    </div>
+                    <button class="btn-add" onclick="addToCart('Muffin', 3.75)">Add to Order</button>
+                </div>
+
+                <div class="menu-item" data-category="pastry">
+                    <div class="menu-item-info">
+                        <h3>Danishes</h3>
+                        <p>Cheese or fruit filled</p>
+                        <span class="price"> ₱149</span>
+                    </div>
+                    <button class="btn-add" onclick="addToCart('Danishes', 4.25)">Add to Order</button>
+                </div>
+
+                <div class="menu-item" data-category="pastry">
+                    <div class="menu-item-info">
+                        <h3>Scone</h3>
+                        <p>With clotted cream and jam</p>
+                        <span class="price"> ₱149</span>
+                    </div>
+                    <button class="btn-add" onclick="addToCart('Scone', 4.50)">Add to Order</button>
+                </div>
+
+                <!-- Breakfast Items -->
+                <div class="menu-item" data-category="breakfast">
+                    <div class="menu-item-info">
+                        <h3>Avocado Toast</h3>
+                        <p>Sourdough with avocado and poached egg</p>
+                        <span class="price"> ₱199</span>
+                    </div>
+                    <button class="btn-add" onclick="addToCart('Avocado Toast', 9.50)">Add to Order</button>
+                </div>
+
+                <div class="menu-item" data-category="breakfast">
+                    <div class="menu-item-info">
+                        <h3>Breakfast Sandwich</h3>
+                        <p>Egg, cheese, and bacon on a croissant</p>
+                        <span class="price"> ₱149</span>
+                    </div>
+                    <button class="btn-add" onclick="addToCart('Breakfast Sandwich', 8.75)">Add to Order</button>
+                </div>
+
+                <div class="menu-item" data-category="breakfast">
+                    <div class="menu-item-info">
+                        <h3>Pancakes</h3>
+                        <p>Fluffy pancakes with maple syrup</p>
+                        <span class="price"> ₱129</span>
+                    </div>
+                    <button class="btn-add" onclick="addToCart('Pancakes', 7.50)">Add to Order</button>
+                </div>
+
+                <div class="menu-item" data-category="breakfast">
+                    <div class="menu-item-info">
+                        <h3>Omelette</h3>
+                        <p>Three eggs with cheese and vegetables</p>
+                        <span class="price"> ₱99</span>
+                    </div>
+                    <button class="btn-add" onclick="addToCart('Omelette', 10.00)">Add to Order</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== CLASSIC FOOTER ===== -->
+    <footer class="classic-footer">
+        <div class="footer-divider"></div>
+        <div class="container">
+            <div class="footer-top">
+                <div class="footer-brand">
+                    <h3>☕ Brew & Bloom</h3>
+                    <p class="tagline">"Where every cup tells a story"</p>
+                    <p class="description">Established in 2020, we've been serving the community with passion, warmth, and the finest coffee.</p>
+                </div>
+
+                <div class="footer-links">
+                    <div class="footer-column">
+                        <h4>Quick Links</h4>
+                        <ul>
+                            <li><a href="index.html">Home</a></li>
+                            <li><a href="menu.html">Menu</a></li>
+                            <li><a href="about.html">About Us</a></li>
+                            <li><a href="reservations.html">Reservations</a></li>
+                            <li><a href="contact.html">Contact</a></li>
+                        </ul>
+                    </div>
+
+                    <div class="footer-column">
+                        <h4>Visit Us</h4>
+                        <ul>
+                            <li><span class="icon">📍</span> 123 Coffee Street, Cafe City</li>
+                            <li><span class="icon">📞</span> (555) 123-4567</li>
+                            <li><span class="icon">✉️</span> info@brewandbloom.com</li>
+                        </ul>
+                    </div>
+
+                    <div class="footer-column">
+                        <h4>Hours</h4>
+                        <ul>
+                            <li><strong>Mon - Fri:</strong> 8:00 AM - 10:00 PM</li>
+                            <li><strong>Sat - Sun:</strong> 9:00 AM - 11:00 PM</li>
+                            <li><strong>Holidays:</strong> 9:00 AM - 8:00 PM</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="footer-social">
+                <span>Follow us:</span>
+                <a href="#" aria-label="Facebook">📘</a>
+                <a href="#" aria-label="Instagram">📷</a>
+                <a href="#" aria-label="Twitter">🐦</a>
+                <a href="#" aria-label="YouTube">▶️</a>
+            </div>
+
+            <div class="footer-bottom">
+                <div class="footer-bottom-content">
+                    <p>&copy; 2026 Brew & Bloom Cafe. All rights reserved.</p>
+                    <p class="footer-legal">
+                        <a href="#">Privacy Policy</a> • 
+                        <a href="#">Terms of Service</a> • 
+                        <a href="#">Cookie Policy</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="main.js"></script>
+</body>
+
+</html>

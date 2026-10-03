@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reservations - Brew & Bloom</title>
+    <link rel="stylesheet" href="rein.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+</head>
+
+<body>
+
+    <nav class="navbar">
+        <div class="container">
+            <div class="logo">
+                <h2>☕ Brew & Bloom</h2>
+            </div>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="menu.html">Menu</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="reservations.html" class="active">Reservations</a></li>
+                <li><a href="contact.html">Contact</a></li>
+                <li><a href="cart.html" class="cart-link">🛒 <span class="cart-count" id="cartCount">0</span></a></li>
+            </ul>
+            <div class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <section class="reservation-page">
+        <div class="container">
+            <h1>Book a Table</h1>
+            <p class="subtitle">Reserve your spot for an unforgettable dining experience</p>
+
+            <form class="reservation-form">
+                <div class="form-group">
+                    <label for="name">Full Name</label>
+                    <input type="text" id="name" name="name" required placeholder="John Doe">
+                </div>
+
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" required placeholder="john@example.com">
+                </div>
+
+                <div class="form-group">
+                    <label for="phone">Phone Number</label>
+                    <input type="tel" id="phone" name="phone" required placeholder="(555) 123-4567">
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="date">Date</label>
+                        <input type="date" id="date" name="date" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="time">Time</label>
+                        <input type="time" id="time" name="time" required>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="guests">Number of Guests</label>
+                    <select id="guests" name="guests" required>
+                        <option value="1">1 person</option>
+                        <option value="2" selected>2 people</option>
+                        <option value="3">3 people</option>
+                        <option value="4">4 people</option>
+                        <option value="5">5 people</option>
+                        <option value="6">6 people</option>
+                        <option value="7">7 people</option>
+                        <option value="8">8 people</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="message">Special Requests</label>
+                    <textarea id="message" name="message" rows="3" placeholder="Any special requirements..."></textarea>
+                </div>
+
+                <button type="submit" class="btn btn-primary">Reserve Now</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- ===== CLASSIC FOOTER ===== -->
+    <footer class="classic-footer">
+        <div class="footer-divider"></div>
+        <div class="container">
+            <div class="footer-top">
+                <div class="footer-brand">
+                    <h3>☕ Brew & Bloom</h3>
+                    <p class="tagline">"Where every cup tells a story"</p>
+                    <p class="description">Established in 2020, we've been serving the community with passion, warmth,
+                        and the finest coffee.</p>
+                </div>
+
+                <div class="footer-links">
+                    <div class="footer-column">
+                        <h4>Quick Links</h4>
+                        <ul>
+                            <li><a href="index.html">Home</a></li>
+                            <li><a href="menu.html">Menu</a></li>
+                            <li><a href="about.html">About Us</a></li>
+                            <li><a href="reservations.html">Reservations</a></li>
+                            <li><a href="contact.html">Contact</a></li>
+                        </ul>
+                    </div>
+
+                    <div class="footer-column">
+                        <h4>Visit Us</h4>
+                        <ul>
+                            <li><span class="icon">📍</span> 123 Coffee Street, Cafe City</li>
+                            <li><span class="icon">📞</span> (555) 123-4567</li>
+                            <li><span class="icon">✉️</span> info@brewandbloom.com</li>
+                        </ul>
+                    </div>
+
+                    <div class="footer-column">
+                        <h4>Hours</h4>
+                        <ul>
+                            <li><strong>Mon - Fri:</strong> 8:00 AM - 10:00 PM</li>
+                            <li><strong>Sat - Sun:</strong> 9:00 AM - 11:00 PM</li>
+                            <li><strong>Holidays:</strong> 9:00 AM - 8:00 PM</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="footer-social">
+                <span>Follow us:</span>
+                <a href="#" aria-label="Facebook">📘</a>
+                <a href="#" aria-label="Instagram">📷</a>
+                <a href="#" aria-label="Twitter">🐦</a>
+                <a href="#" aria-label="YouTube">▶️</a>
+            </div>
+
+            <div class="footer-bottom">
+                <div class="footer-bottom-content">
+                    <p>&copy; 2026 Brew & Bloom Cafe. All rights reserved.</p>
+                    <p class="footer-legal">
+                        <a href="#">Privacy Policy</a> •
+                        <a href="#">Terms of Service</a> •
+                        <a href="#">Cookie Policy</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="main.js"></script>
+</body>
+
+</html>
