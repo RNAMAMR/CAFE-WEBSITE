@@ -364,44 +364,66 @@
     }
 
     /* ============================================================
-       8. HAMBURGER MENU (mobile navigation) — improved
+       8. HAMBURGER MENU (mobile navigation) — FIXED
        ============================================================ */
     function setupHamburgerMenu() {
         const hamburger = document.querySelector('.hamburger');
-        const navLinks = document.querySelector('.nav-links');
+        const navLinks  = document.querySelector('.nav-links');
         if (!hamburger || !navLinks) return;
 
+        hamburger.setAttribute('role', 'button');
+        hamburger.setAttribute('tabindex', '0');
+        hamburger.setAttribute('aria-label', 'Toggle navigation menu');
+        hamburger.setAttribute('aria-expanded', 'false');
+
+        const isOpen = () => navLinks.classList.contains('open');
+
+        function openMenu() {
+            navLinks.classList.add('open');
+            hamburger.classList.add('active');
+            hamburger.setAttribute('aria-expanded', 'true');
+        }
         function closeMenu() {
             navLinks.classList.remove('open');
             hamburger.classList.remove('active');
+            hamburger.setAttribute('aria-expanded', 'false');
         }
+        function toggleMenu() { isOpen() ? closeMenu() : openMenu(); }
 
+        /* Tap / click the hamburger */
         hamburger.addEventListener('click', (e) => {
+            e.preventDefault();
             e.stopPropagation();
-            navLinks.classList.toggle('open');
-            hamburger.classList.toggle('active');
+            toggleMenu();
         });
 
-        // Close menu when a nav link is clicked
-        navLinks.querySelectorAll('a').forEach(link => {
-            link.addEventListener('click', closeMenu);
-        });
-
-        // Close menu when clicking outside
-        document.addEventListener('click', (e) => {
-            if (navLinks.classList.contains('open') &&
-                !navLinks.contains(e.target) &&
-                !hamburger.contains(e.target)) {
-                closeMenu();
+        /* Keyboard support */
+        hamburger.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                toggleMenu();
             }
         });
 
-        // Close menu on resize to desktop
+        /* Event delegation: any link tap closes the menu (works even for
+           links added later, and never blocks navigation) */
+        navLinks.addEventListener('click', (e) => {
+            if (e.target.closest('a')) closeMenu();
+        });
+
+        /* Tap outside closes */
+        document.addEventListener('click', (e) => {
+            if (!isOpen()) return;
+            if (navLinks.contains(e.target) || hamburger.contains(e.target)) return;
+            closeMenu();
+        });
+
+        /* Reset when resizing back to desktop */
         window.addEventListener('resize', () => {
             if (window.innerWidth > 768) closeMenu();
         });
 
-        // Close on Escape key
+        /* Escape closes */
         document.addEventListener('keydown', (e) => {
             if (e.key === 'Escape') closeMenu();
         });
@@ -421,16 +443,20 @@
     }
 
     /* ============================================================
-       10. INITIALIZE
+       10. INITIALIZE (fault-tolerant — hamburger always runs)
        ============================================================ */
     document.addEventListener('DOMContentLoaded', () => {
-        Cart.updateCount();
-        renderCartPage();
-        setupMenuFilter();
-        setupReviews();
-        setupReservationForm();
-        setupContactForm();
-        setupHamburgerMenu();
+        const safe = (fn, label) => {
+            try { fn(); } catch (err) { console.error(`[init:${label}]`, err); }
+        };
+
+        safe(() => Cart.updateCount(), 'cartCount');
+        safe(renderCartPage,           'cartPage');
+        safe(setupMenuFilter,          'menuFilter');
+        safe(setupReviews,             'reviews');
+        safe(setupReservationForm,     'reservation');
+        safe(setupContactForm,         'contact');
+        safe(setupHamburgerMenu,       'hamburger');   // ← always runs
 
         console.log('✅ Brew & Bloom — all systems loaded');
     });
