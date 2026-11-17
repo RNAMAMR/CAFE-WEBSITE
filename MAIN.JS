@@ -364,17 +364,12 @@
     }
 
     /* ============================================================
-       8. HAMBURGER MENU (mobile navigation) — FIXED
+       8. HAMBURGER MENU (mobile navigation)
        ============================================================ */
     function setupHamburgerMenu() {
         const hamburger = document.querySelector('.hamburger');
         const navLinks  = document.querySelector('.nav-links');
         if (!hamburger || !navLinks) return;
-
-        hamburger.setAttribute('role', 'button');
-        hamburger.setAttribute('tabindex', '0');
-        hamburger.setAttribute('aria-label', 'Toggle navigation menu');
-        hamburger.setAttribute('aria-expanded', 'false');
 
         const isOpen = () => navLinks.classList.contains('open');
 
@@ -390,20 +385,7 @@
         }
         function toggleMenu() { isOpen() ? closeMenu() : openMenu(); }
 
-        /* Tap / click the hamburger */
-        hamburger.addEventListener('click', (e) => {
-            e.preventDefault();
-            e.stopPropagation();
-            toggleMenu();
-        });
-
-        /* Keyboard support */
-        hamburger.addEventListener('keydown', (e) => {
-            if (e.key === 'Enter' || e.key === ' ') {
-                e.preventDefault();
-                toggleMenu();
-            }
-        });
+        hamburger.addEventListener('click', toggleMenu);
 
         /* Event delegation: any link tap closes the menu (works even for
            links added later, and never blocks navigation) */
