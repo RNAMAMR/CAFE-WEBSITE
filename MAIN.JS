@@ -13,52 +13,40 @@
         get() {
             return JSON.parse(localStorage.getItem('cart')) || [];
         },
-
         save(cart) {
             localStorage.setItem('cart', JSON.stringify(cart));
             this.updateCount();
         },
-
         add(name, price) {
             const cart = this.get();
             const existing = cart.find(item => item.name === name);
-
             if (existing) {
                 existing.quantity += 1;
             } else {
-                cart.push({ name, price, quantity: 1 });
+                cart.push({ name, price: Number(price), quantity: 1 });
             }
-
             this.save(cart);
             showNotification(`✅ ${name} added to cart!`);
         },
-
         updateQuantity(index, change) {
             const cart = this.get();
             if (!cart[index]) return;
-
             cart[index].quantity += change;
-            if (cart[index].quantity <= 0) {
-                cart.splice(index, 1);
-            }
+            if (cart[index].quantity <= 0) cart.splice(index, 1);
             this.save(cart);
         },
-
         remove(index) {
             const cart = this.get();
             cart.splice(index, 1);
             this.save(cart);
         },
-
         clear() {
             localStorage.removeItem('cart');
             this.updateCount();
         },
-
         totalItems() {
             return this.get().reduce((sum, item) => sum + item.quantity, 0);
         },
-
         totals() {
             const cart = this.get();
             const subtotal = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
@@ -66,16 +54,12 @@
             const total = subtotal + tax;
             return { subtotal, tax, total };
         },
-
         updateCount() {
             const badge = document.getElementById('cartCount');
-            if (badge) {
-                badge.textContent = this.totalItems();
-            }
+            if (badge) badge.textContent = this.totalItems();
         }
     };
 
-    // Expose to global scope for inline onclick handlers
     window.addToCart = (name, price) => Cart.add(name, price);
     window.updateQuantity = (index, change) => {
         Cart.updateQuantity(index, change);
@@ -99,17 +83,16 @@
 
         setTimeout(() => {
             n.classList.remove('show');
-            setTimeout(() => n.remove(), 300);
+            setTimeout(() => n.remove(), 400);
         }, 3000);
     }
 
     /* ============================================================
-       3. CART PAGE RENDERING (only runs on cart.html)
+       3. CART PAGE RENDERING
        ============================================================ */
     function renderCartPage() {
         const cartItemsContainer = document.getElementById('cartItems');
         const cartSummaryContainer = document.getElementById('cartSummary');
-
         if (!cartItemsContainer || !cartSummaryContainer) return;
 
         const cart = Cart.get();
@@ -133,15 +116,15 @@
             html += `
                 <div class="cart-item">
                     <div class="cart-item-details">
-                        <h3>${item.name}</h3>
-                        <p>$${item.price.toFixed(2)} each</p>
+                        <h3>${escapeHtml(item.name)}</h3>
+                        <p>₱${item.price.toFixed(2)} each</p>
                     </div>
                     <div class="cart-item-controls">
-                        <button onclick="updateQuantity(${index}, -1)" class="btn-qty">−</button>
+                        <button onclick="updateQuantity(${index}, -1)" class="btn-qty" aria-label="Decrease quantity">−</button>
                         <span class="quantity">${item.quantity}</span>
-                        <button onclick="updateQuantity(${index}, 1)" class="btn-qty">+</button>
-                        <span class="cart-item-total">$${itemTotal.toFixed(2)}</span>
-                        <button onclick="removeItem(${index})" class="btn-remove">✕</button>
+                        <button onclick="updateQuantity(${index}, 1)" class="btn-qty" aria-label="Increase quantity">+</button>
+                        <span class="cart-item-total">₱${itemTotal.toFixed(2)}</span>
+                        <button onclick="removeItem(${index})" class="btn-remove" aria-label="Remove item">✕</button>
                     </div>
                 </div>
             `;
@@ -155,15 +138,15 @@
                 <h3>Order Summary</h3>
                 <div class="summary-row">
                     <span>Subtotal</span>
-                    <span>$${subtotal.toFixed(2)}</span>
+                    <span>₱${subtotal.toFixed(2)}</span>
                 </div>
                 <div class="summary-row">
                     <span>Tax (8%)</span>
-                    <span>$${tax.toFixed(2)}</span>
+                    <span>₱${tax.toFixed(2)}</span>
                 </div>
                 <div class="summary-row total">
                     <span><strong>Total</strong></span>
-                    <span><strong>$${total.toFixed(2)}</strong></span>
+                    <span><strong>₱${total.toFixed(2)}</strong></span>
                 </div>
                 <a href="checkout.html" class="btn btn-primary btn-checkout">Proceed to Checkout</a>
                 <a href="menu.html" class="btn btn-secondary">Continue Shopping</a>
@@ -174,12 +157,11 @@
     }
 
     /* ============================================================
-       4. MENU CATEGORY FILTER (only runs on menu.html)
+       4. MENU CATEGORY FILTER
        ============================================================ */
     function setupMenuFilter() {
         const buttons = document.querySelectorAll('.category-btn');
         const menuItems = document.querySelectorAll('.menu-item');
-
         if (buttons.length === 0 || menuItems.length === 0) return;
 
         buttons.forEach(button => {
@@ -201,7 +183,7 @@
     }
 
     /* ============================================================
-       5. REVIEWS SYSTEM (only runs on index.html)
+       5. REVIEWS SYSTEM
        ============================================================ */
     const sampleReviews = [
         { id: 1, name: 'Maria Santos', rating: 5, text: 'Absolutely love this place! The coffee is always perfect, and the staff is incredibly friendly. The atmosphere is cozy and welcoming. Best cafe in town!', date: '2 days ago' },
@@ -215,7 +197,6 @@
     function setupReviews() {
         const reviewsGrid = document.getElementById('reviewsGrid');
         const reviewForm = document.getElementById('reviewForm');
-
         if (!reviewsGrid) return;
 
         let reviews = JSON.parse(localStorage.getItem('reviews')) || sampleReviews;
@@ -229,7 +210,6 @@
                 `;
                 return;
             }
-
             reviewsGrid.innerHTML = reviews.map(review => {
                 const stars = '★'.repeat(review.rating) + '☆'.repeat(5 - review.rating);
                 return `
@@ -251,7 +231,6 @@
             const total = reviews.length;
             const avg = total > 0 ? (reviews.reduce((sum, r) => sum + r.rating, 0) / total).toFixed(1) : '0.0';
             const recommend = total > 0 ? Math.round((reviews.filter(r => r.rating >= 4).length / total) * 100) : 0;
-
             const statNumbers = document.querySelectorAll('.stat-number');
             if (statNumbers.length >= 3) {
                 statNumbers[0].textContent = avg;
@@ -280,7 +259,6 @@
                 const name = document.getElementById('reviewName').value.trim();
                 const rating = document.getElementById('reviewRating').value;
                 const text = document.getElementById('reviewText').value.trim();
-
                 if (name && text) {
                     addReview(name, rating, text);
                     this.reset();
@@ -293,7 +271,7 @@
     }
 
     /* ============================================================
-       6. RESERVATION FORM (only runs on reservations.html)
+       6. RESERVATION FORM
        ============================================================ */
     function setupReservationForm() {
         const form = document.querySelector('.reservation-form');
@@ -348,7 +326,7 @@
     }
 
     /* ============================================================
-       7. CONTACT FORM (only runs on contact.html)
+       7. CONTACT FORM
        ============================================================ */
     function setupContactForm() {
         const form = document.querySelector('.contact-form form');
@@ -386,20 +364,51 @@
     }
 
     /* ============================================================
-       8. HAMBURGER MENU (mobile navigation)
+       8. HAMBURGER MENU (mobile navigation) — improved
        ============================================================ */
     function setupHamburgerMenu() {
         const hamburger = document.querySelector('.hamburger');
         const navLinks = document.querySelector('.nav-links');
         if (!hamburger || !navLinks) return;
 
-        hamburger.addEventListener('click', () => {
+        function closeMenu() {
+            navLinks.classList.remove('open');
+            hamburger.classList.remove('active');
+        }
+
+        hamburger.addEventListener('click', (e) => {
+            e.stopPropagation();
             navLinks.classList.toggle('open');
+            hamburger.classList.toggle('active');
+        });
+
+        // Close menu when a nav link is clicked
+        navLinks.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', closeMenu);
+        });
+
+        // Close menu when clicking outside
+        document.addEventListener('click', (e) => {
+            if (navLinks.classList.contains('open') &&
+                !navLinks.contains(e.target) &&
+                !hamburger.contains(e.target)) {
+                closeMenu();
+            }
+        });
+
+        // Close menu on resize to desktop
+        window.addEventListener('resize', () => {
+            if (window.innerWidth > 768) closeMenu();
+        });
+
+        // Close on Escape key
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') closeMenu();
         });
     }
 
     /* ============================================================
-       9. UTILITY: Escape HTML (for safe rendering)
+       9. UTILITY: Escape HTML
        ============================================================ */
     function escapeHtml(str) {
         if (!str) return '';
@@ -412,7 +421,7 @@
     }
 
     /* ============================================================
-       10. INITIALIZE EVERYTHING ON PAGE LOAD
+       10. INITIALIZE
        ============================================================ */
     document.addEventListener('DOMContentLoaded', () => {
         Cart.updateCount();
